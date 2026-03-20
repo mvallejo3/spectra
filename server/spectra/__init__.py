@@ -1,0 +1,1 @@
+"""Spectra analytics ingestion server."""

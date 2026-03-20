@@ -1,0 +1,34 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.egg
+.sqlite/
+
+# Node / TypeScript
+node_modules/
+dist/
+*.tsbuildinfo
+
+# Env & secrets
+.env
+.env.local
+secrets/
+
+# IDE
+.idea/
+.vscode/
+
+# OS
+.DS_Store
+
+# Logs
+*.log
+
+# Testing
+tests/
+
+# AI 
+.cursor/
+planning/
