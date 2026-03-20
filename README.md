@@ -60,3 +60,7 @@ Add the script to your project and start tracking events.
   </script>
 </head>
 ```
+
+## License
+
+[MIT](LICENSE)

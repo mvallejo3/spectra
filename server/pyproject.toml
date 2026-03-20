@@ -2,6 +2,7 @@
 name = "spectra-server"
 version = "1.0.0"
 description = "Analytics event ingestion server for Spectra"
+license = { text = "MIT" }
 requires-python = ">=3.11"
 
 [build-system]

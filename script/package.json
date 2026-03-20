@@ -1,6 +1,7 @@
 {
   "name": "@spectra/tracker",
   "version": "1.0.0",
+  "license": "MIT",
   "description": "Analytics tracking script for Spectra",
   "main": "dist/tracker.js",
   "scripts": {
