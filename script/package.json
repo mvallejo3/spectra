@@ -1,15 +1,26 @@
 {
   "name": "@spectra-js/tracker",
-  "version": "1.0.0",
-  "license": "MIT",
+  "version": "1.0.1",
   "description": "Analytics tracking script for Spectra",
-  "main": "dist/tracker.js",
   "keywords": [
     "spectra",
     "spectra-js",
     "tracker",
     "tracking"
   ],
+  "homepage": "https://github.com/mvallejo3/spectra/tree/main/script",
+  "bugs": {
+    "url": "https://github.com/mvallejo3/spectra/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mvallejo3/spectra.git#main"
+  },
+  "license": "MIT",
+  "author": "mvallejo3",
+  "type": "commonjs",
+  "main": "dist/tracker.js",
+  "types": "./dist/tracker.d.ts",
   "scripts": {
     "build": "npm run prebuild && tsc && node build.js",
     "watch": "tsc --watch",
