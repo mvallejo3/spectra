@@ -1,6 +1,6 @@
 {
   "name": "@spectra-js/tracker",
-  "version": "1.0.5",
+  "version": "1.0.3",
   "description": "Analytics tracking script for Spectra",
   "keywords": [
     "spectra",
@@ -24,8 +24,6 @@
   "scripts": {
     "build": "npm run prebuild && tsc && node build.js",
     "watch": "tsc --watch",
-    "prepcdn": "cp dist/spectra.js ../cdn/public/spectra.js",
-    "deploycdn": "yarn prepcdn && cd ../cdn && yarn deploy",
     "prebuild": "node -e \"require('fs').writeFileSync('src/version.ts', 'export const version = \\\"' + require('./package.json').version + '\\\";\\n')\""
   },
   "devDependencies": {
