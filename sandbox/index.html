@@ -16,22 +16,15 @@
     .tall { min-height: 400px; }
     #scroll-marker { margin-top: 300px; padding: 2rem; background: #f0f0f0; border-radius: 8px; }
   </style>
-  <!-- <script>
-    (function(r, o, y, g, b, i, v){
-      r.__spectraConfig = b;
-      i = o.createElement('script');i.src = y+g;i.async = 1;
-      i.onload = () => {Spectra.init(b);Spectra.logEvent('page_load');};
-      v = o.getElementsByTagName('head')[0];v.appendChild(i);
-    })(window, document, 'https://spectrajs.web.app/', 'spectra.js', { accountId: 'spectra_test', debug: true });
-    </script> -->
   <script src="../script/dist/spectra.js"></script>
   <script>
-    console.log({Spectra})
+    // Init Spectra
     Spectra.init({
       debug: true,
       accountId: 'spectra_test',
-      // endpoint: 'http://localhost:8000/track',
+      endpoint: 'http://localhost:8000/track', // If blank, events go to https://api.spectrajs.com/track
     });
+    // Log an event
     Spectra.logEvent('page_load');
   </script>
 </head>
@@ -68,7 +61,7 @@
     </form>
   </section>
 
-  <!-- <script>
+  <script>
     // Log click events for all buttons
     const btns = document.querySelectorAll('button');
     btns.forEach(btn => {
@@ -90,6 +83,6 @@
 
     // Log page view event
     Spectra.logEvent('page_view');
-  </script> -->
+  </script>
 </body>
 </html>
