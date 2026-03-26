@@ -133,7 +133,7 @@ export interface FormSubmitFields {
 }
 
 /** Full event payload sent to the server */
-export type EventPayload = BaseEventFields &
+export type EventPayload = Partial<BaseEventFields> &
   Partial<ClickFields> &
   Partial<ScrollFields> &
   Partial<FormSubmitFields>;

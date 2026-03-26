@@ -7,6 +7,7 @@ __pycache__/
 .sqlite/
 
 # Node / TypeScript
+.npmrc
 node_modules/
 dist/
 *.tsbuildinfo

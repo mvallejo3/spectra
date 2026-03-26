@@ -1,6 +1,6 @@
 {
   "name": "@spectra-js/tracker",
-  "version": "1.0.2",
+  "version": "1.0.5",
   "description": "Analytics tracking script for Spectra",
   "keywords": [
     "spectra",
@@ -18,9 +18,9 @@
   },
   "license": "MIT",
   "author": "mvallejo3",
-  "type": "commonjs",
-  "main": "dist/spectra.js",
-  "types": "./dist/index.d.ts",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "./dist/SpectraJS/index.d.ts",
   "scripts": {
     "build": "npm run prebuild && tsc && node build.js",
     "watch": "tsc --watch",

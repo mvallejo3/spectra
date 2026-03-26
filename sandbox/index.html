@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Spectra Sandbox With Beacon v2</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; max-width: 640px; margin: 0 auto; padding: 2rem; line-height: 1.6; }
+    h1 { margin-top: 0; }
+    section { margin: 2rem 0; padding: 1rem; border: 1px solid #ddd; border-radius: 8px; }
+    button, a.btn { display: inline-block; padding: 0.5rem 1rem; margin: 0 0.5rem 0.5rem 0; cursor: pointer; text-decoration: none; border: 1px solid #333; border-radius: 4px; background: #f5f5f5; color: #333; font-size: 1rem; }
+    button:hover, a.btn:hover { background: #e5e5e5; }
+    form { margin: 1rem 0; }
+    input, select, textarea { display: block; margin: 0.5rem 0; padding: 0.5rem; width: 100%; max-width: 300px; }
+    .tall { min-height: 400px; }
+    #scroll-marker { margin-top: 300px; padding: 2rem; background: #f0f0f0; border-radius: 8px; }
+  </style>
+  <!-- <script>
+    (function(r, o, y, g, b, i, v){
+      r.__spectraConfig = b;
+      i = o.createElement('script');i.src = y+g;i.async = 1;
+      i.onload = () => {Spectra.init(b);Spectra.logEvent('page_load');};
+      v = o.getElementsByTagName('head')[0];v.appendChild(i);
+    })(window, document, 'https://spectrajs.web.app/', 'spectra.js', { accountId: 'spectra_test', debug: true });
+    </script> -->
+  <script src="../script/dist/spectra.js"></script>
+  <script>
+    console.log({Spectra})
+    Spectra.init({
+      debug: true,
+      accountId: 'spectra_test',
+      // endpoint: 'http://localhost:8000/track',
+    });
+    Spectra.logEvent('page_load');
+  </script>
+</head>
+<body>
+  <h1>Spectra JS Sandbox</h1>
+  <p>Use this page to verify that click, scroll, and form submission events are sent to the server.</p>
+
+  <section>
+    <h2>Clicks</h2>
+    <button type="button">Plain button</button>
+    <button type="button" id="btn-with-id">Button with ID</button>
+    <button type="button" class="primary fancy">Button with classes</button>
+    <a href="#anchor" class="btn">Link (anchor)</a>
+    <a href="https://photon.software" class="btn">Link Outside</a>
+    <a href="https://example.com" class="btn" target="_blank">New Tab</a>
+  </section>
+
+  <section class="tall">
+    <h2>Scroll</h2>
+    <p>Scroll down to trigger scroll events. The tracker debounces by ~150ms.</p>
+    <div id="scroll-marker">Scroll to here ↓</div>
+  </section>
+
+  <section>
+    <h2>Form submission</h2>
+    <form id="test-form" action="/submit" method="POST">
+      <input type="text" name="name" placeholder="Name" />
+      <input type="email" name="email" placeholder="Email" />
+      <select name="option">
+        <option value="a">Option A</option>
+        <option value="b">Option B</option>
+      </select>
+      <button type="submit">Submit form</button>
+    </form>
+  </section>
+
+  <!-- <script>
+    // Log click events for all buttons
+    const btns = document.querySelectorAll('button');
+    btns.forEach(btn => {
+      btn.addEventListener('click', (event) => {
+        Spectra.logEvent('click', Spectra.utils.createClickPayload(event));
+      });
+    });
+
+    // Log scroll events
+    // window.addEventListener('scroll', (event) => {
+    //   Spectra.logEvent('scroll', Spectra.utils.createScrollPayload(event));
+    // });
+
+    // Log form submission events
+    const form = document.getElementById('test-form');
+    form.addEventListener('submit', (event) => {
+      Spectra.logEvent('form_submit', Spectra.utils.createFormSubmitPayload(event));
+    });
+
+    // Log page view event
+    Spectra.logEvent('page_view');
+  </script> -->
+</body>
+</html>

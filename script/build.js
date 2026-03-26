@@ -1,6 +1,12 @@
-const esbuild = require("esbuild");
-const path = require("path");
-const { version } = require("./package.json");
+import { readFileSync } from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import esbuild from "esbuild";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const { version } = JSON.parse(
+  readFileSync(path.join(__dirname, "package.json"), "utf8")
+);
 
 const banner = `
 /*! 
@@ -17,7 +23,7 @@ esbuild
     outfile: path.join(__dirname, "dist", "spectra.js"),
     format: "iife",
     globalName: "Spectra",
-    platform: "browser",
+    platform: "node",
     minify: true,
     sourcemap: true,
     loader: { ".ts": "ts" },
