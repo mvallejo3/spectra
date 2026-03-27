@@ -14,6 +14,7 @@ Spectra is an open source tool for tracking user interactions online. It works w
 
 - **script/** – TypeScript tracking script (capture events, add to queue, send to server)
 - **server/** – Python HTTP server (receive events, write to BigQuery)
+- **sandbox/** – A simple html page that you can use to play with Spectra locally.
 
 ## Quick Start
 
@@ -27,10 +28,15 @@ cd script && npm install && npm run build
 
 Requires Python 3.11+.
 
+The python server uses BigQuery to store events data. You will need to an [Application Default Credential (ADC)](https://docs.cloud.google.com/docs/authentication/application-default-credentials) from Google in order to connect to your own BigQuery database.
+
 ```bash
 cd server
 python -m venv .venv && source .venv/bin/activate  # or: .venv\Scripts\activate on Windows
-pip install -e .   # or: pip install -r requirements.txt
+pip install -r requirements.txt
+
+# If you don't have your ADC file, create one
+gcloud auth application-default login
 
 # Set environment variables for BigQuery (see .env.example)
 export BIGQUERY_PROJECT_ID=your-project
@@ -63,11 +69,21 @@ Add the script to your project and start tracking events.
 
 ## Sandbox
 
-The **[`sandbox`](../sandbox/)** page exercises clicks, scroll, and form flows against a built `spectra.js`.
+Use the sandbox page to test clicks, scroll, and form flows against a built `spectra.js`.
 
-1. From this directory, run **`npm run build`** (so `dist/spectra.js` exists).
-2. Start a static server from the **parent** of `script/` (the folder that contains both `script/` and `sandbox/`), e.g. `python3 -m http.server 3000`.
-3. Open **`/sandbox/index.html`** on that host (e.g. `http://localhost:3000/sandbox/index.html`). The page loads `../script/dist/spectra.js` relative to the HTML URL.
+1. From the script directory, build `spectra.js` file.
+
+```sh
+cd script && npm run build
+```
+
+2. Start a static server from the **root** directory (the folder that contains both `script/` and `sandbox/`).
+
+```sh
+python3 -m http.server 3000
+```
+
+3. Open [the sandbox page](`http://localhost:3000/sandbox/index.html`).
 
 Adjust **`endpoint`** in `sandbox/index.html` if your ingest server is not on the default URL.
 
