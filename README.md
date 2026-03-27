@@ -85,6 +85,8 @@ python3 -m http.server 3000
 
 3. Open [the sandbox page](`http://localhost:3000/sandbox/index.html`).
 
+Visit `http://localhost:3000/sandbox/index.html` on your browser.
+
 Adjust **`endpoint`** in `sandbox/index.html` if your ingest server is not on the default URL.
 
 ## License
