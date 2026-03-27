@@ -1,50 +1,30 @@
 # @spectra-js/tracker
 
-Browser tracking library for [Spectra](../README.md): queues events and sends them to your Spectra server endpoint.
+[Spectra](https://github.com/mvallejo3/spectra/tree/main) is an open source tool for tracking user interactions online. This package contains the _tracker script_ for your own Spectra implementation.
 
-## Requirements
+The Spectra tracker script allows you to log events and send them to your Spectra server endpoint. The script automatically queues events and sends them to the server in batches.
 
-- Node.js 18+ (or Bun; this repo includes a `bun.lock`)
+## Prerequisites:
 
-## Install and build
+- You must run your own Spectra python server- Clone [the repo](https://github.com/mvallejo3/spectra/tree/main) and follow step 2 in the _Quick Start_ section.
+- Or, use your Spectra account id if you have one.
+
+# Get Started
+
+## Install the tracker
 
 ```bash
-cd script
-npm install # or bun install
-npm run build # or bun run build
+# npm
+npm i @spectra-js/tracker
+# yarn
+yarn add @spectra-js/tracker
+# bun
+bun add @spectra-js/tracker
 ```
-
-`npm run build` runs `prebuild` (writes `src/version.ts` from `package.json`), `tsc` (emits `dist/**` with declarations), then bundles a single browser file with esbuild.
-
-## Outputs
-
-| Artifact                                    | Purpose                                                            |
-| ------------------------------------------- | ------------------------------------------------------------------ |
-| `dist/spectra.js`                           | Minified IIFE for `<script>` tags; exposes global **`Spectra`**    |
-| `dist/spectra.js.map`                       | Source map                                                         |
-| `dist/index.js` + `dist/**/*.js` / `*.d.ts` | npm **`main`**: ESM entry plus modules and declarations from `tsc` |
-
-For day-to-day sites, use **`dist/spectra.js`**.
-
-## Sandbox
-
-The **[`sandbox`](../sandbox/)** page exercises clicks, scroll, and form flows against a built `spectra.js`.
-
-1. From this directory, run **`npm run build`** (so `dist/spectra.js` exists).
-2. Start a static server from the **parent** of `script/` (the folder that contains both `script/` and `sandbox/`), e.g. `python3 -m http.server 3000`.
-3. Open **`/sandbox/index.html`** on that host (e.g. `http://localhost:3000/sandbox/index.html`). The page loads `../script/dist/spectra.js` relative to the HTML URL.
-
-Adjust **`endpoint`** in `sandbox/index.html` if your ingest server is not on the default URL.
 
 ## Usage with npm (ES modules)
 
 Install from npm, then import named exports (same behavior as the **`Spectra`** global from `spectra.js`):
-
-```bash
-npm install @spectra-js/tracker
-```
-
-The package entry (**`main`**: `dist/index.js`) is ESM. Example with a bundler:
 
 ```ts
 import { init, logEvent, debug, utils } from "@spectra-js/tracker";
@@ -62,15 +42,6 @@ logEvent("custom_event", { foo: "bar" });
 debug(true);
 ```
 
-`utils` matches `Spectra.utils` in the script tag API (`createClickPayload`, `createScrollPayload`, `createFormSubmitPayload`).
-
-## npm scripts
-
-| Script  | Description                                                       |
-| ------- | ----------------------------------------------------------------- |
-| `build` | Version stamp → `tsc` → bundle `dist/spectra.js`                  |
-| `watch` | `tsc --watch` (no bundle; run `build` when you need `spectra.js`) |
-
 ## Usage in HTML
 
 ```html
@@ -86,15 +57,11 @@ debug(true);
 </script>
 ```
 
-`spectra.js` registers the global **`Spectra`** (see `src/SpectraJS/types.ts`).
-
 ### Configuration
 
 - **`accountId`** (required) – Identifies the tenant/table on the backend.
 - **`endpoint`** (optional) – Ingest URL. If omitted, events go to `https://api.spectrajs.com/track`.
-- **`debug`** (optional) – When `true`, logs event names and payloads to the console. You can also enable debug by adding `?_spectraDebug` to the page URL.
-
-`init` is idempotent: a second call returns the same instance.
+- **`debug`** (optional) – When `true`, logs event names and payloads to the console.
 
 ### Programmatic helpers
 

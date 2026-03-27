@@ -61,6 +61,16 @@ Add the script to your project and start tracking events.
 </head>
 ```
 
+## Sandbox
+
+The **[`sandbox`](../sandbox/)** page exercises clicks, scroll, and form flows against a built `spectra.js`.
+
+1. From this directory, run **`npm run build`** (so `dist/spectra.js` exists).
+2. Start a static server from the **parent** of `script/` (the folder that contains both `script/` and `sandbox/`), e.g. `python3 -m http.server 3000`.
+3. Open **`/sandbox/index.html`** on that host (e.g. `http://localhost:3000/sandbox/index.html`). The page loads `../script/dist/spectra.js` relative to the HTML URL.
+
+Adjust **`endpoint`** in `sandbox/index.html` if your ingest server is not on the default URL.
+
 ## License
 
 [MIT](LICENSE)
