@@ -28,8 +28,9 @@ export function initTracker(config: SpectraConfig): Tracker {
   const queue: EventPayload[] = [];
 
   const accountId = config.accountId;
-  const flushWithBeacon = () => flush(endpoint, queue, true, accountId);
-  const flushWithFetch = () => flush(endpoint, queue, false, accountId);
+  const apiKey = config.apiKey;
+  const flushWithBeacon = () => flush(endpoint, queue, true, accountId, apiKey);
+  const flushWithFetch = () => flush(endpoint, queue, false, accountId, apiKey);
 
   const tracker: Tracker = {
     add(payload: EventPayload) {

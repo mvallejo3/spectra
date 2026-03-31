@@ -17,6 +17,7 @@ export interface SpectraConfig {
   debug?: boolean;
   endpoint?: string;
   accountId: string;
+  apiKey?: string;
 }
 
 

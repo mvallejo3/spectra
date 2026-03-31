@@ -138,21 +138,24 @@ export function isExternalLink(el: Element): boolean {
 /**
  * Flush queued events to the server. Uses sendBeacon when reliable during
  * page unload; otherwise uses fetch. Defaults to using sendBeacon.
- * Payload: { account_id?: string, events: [...] }
- * sendBeacon includes account_id in body (cannot set custom headers); fetch also sends X-Account-ID header.
+ * Payload: { account_id?: string, api_key?: string, events: [...] }
+ * sendBeacon includes account_id and api_key in body (cannot set custom headers);
+ * fetch sends X-Account-ID and Authorization: Bearer headers.
  */
 export function flush(
   endpoint: string,
   queue: EventPayload[],
   useBeacon: boolean = true,
-  accountId?: string
+  accountId?: string,
+  apiKey?: string
 ): void {
   if (queue.length === 0) return;
 
   try {
     const batch = queue.splice(0, queue.length);
-    const payload: { account_id?: string; events: EventPayload[] } = { events: batch };
+    const payload: { account_id?: string; api_key?: string; events: EventPayload[] } = { events: batch };
     if (accountId) payload.account_id = accountId;
+    if (apiKey) payload.api_key = apiKey;
     const body = JSON.stringify(payload);
 
     if (useBeacon && navigator.sendBeacon) {
@@ -163,6 +166,7 @@ export function flush(
     } else {
       const headers: Record<string, string> = { "Content-Type": "application/json" };
       if (accountId) headers["X-Account-ID"] = accountId;
+      if (apiKey) headers["Authorization"] = `Bearer ${apiKey}`;
       fetch(endpoint, { method: "POST", headers, body });
     }
   } catch (err) {
