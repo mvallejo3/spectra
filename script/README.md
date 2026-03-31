@@ -7,7 +7,7 @@ The Spectra tracker script allows you to log events and send them to your Spectr
 ## Prerequisites:
 
 - You must run your own Spectra python server- Clone [the repo](https://github.com/mvallejo3/spectra/tree/main) and follow step 2 in the _Quick Start_ section.
-- Or, use your Spectra account id if you have one.
+- Or, use your Spectra account id and API key if you have one.
 
 # Get Started
 
