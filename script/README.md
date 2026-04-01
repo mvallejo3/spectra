@@ -68,30 +68,34 @@ debug(true);
 
 The `apiKey` option is purely a client-side convenience. Your server is responsible for validating the token.
 
-Below is an example of how to add an API key dependency to the `/track` endpoint in [`/server/app.py`](https://github.com/mvallejo3/spectra/blob/main/server/app.py):
+Install `spectra-server` and use `create_app()` to inject a validation middleware:
 
 ```python
-import logging
-from datetime import date, datetime, timedelta, timezone
+# myapp.py
+from spectra import create_app
+from starlette.middleware.base import BaseHTTPMiddleware
+from starlette.responses import JSONResponse
 
-from fastapi import FastAPI, HTTPException, Query, Request
-## 1. Add `Depends` to list of imports from fastapi ##
-from fastapi import Depends, FastAPI, HTTPException, Query, Request
+class APIKeyMiddleware(BaseHTTPMiddleware):
+    def __init__(self, app, *, keys: list[str]):
+        super().__init__(app)
+        self.keys = set(keys)
 
-## ... ##
+    async def dispatch(self, request, call_next):
+        if request.url.path == "/health":
+            return await call_next(request)
+        token = request.headers.get("Authorization", "").removeprefix("Bearer ").strip()
+        # beacon requests send the key in the body; read it from request.state if cached
+        if token not in self.keys:
+            return JSONResponse({"detail": "Unauthorized"}, status_code=401)
+        return await call_next(request)
 
-## 2. Import your validation service ##
-from spectra_auth import require_api_key
-
-## ... ##
-
-## 3. Add your service as a depndency to the endpoint ##
-@app.post("/track", dependencies=[Depends(require_api_key)])
-async def ingest_events(request: Request) -> dict:
-  ## ... ##
+app = create_app(
+    middleware=[(APIKeyMiddleware, {"keys": ["sk-live-abc123"]})],
+)
 ```
 
-> **Note:** For beacon requests the request body is consumed before the dependency runs. Cache it in middleware first (e.g. store `await request.body()` in `request.state.body`) so both the dependency and the handler can access it.
+Then run with `uvicorn myapp:app`. See the [server README](https://github.com/mvallejo3/spectra/blob/main/server/README.md) for full documentation on extending the server.
 
 ### Programmatic helpers
 
