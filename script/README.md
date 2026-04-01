@@ -61,7 +61,37 @@ debug(true);
 
 - **`accountId`** (required) – Identifies the tenant/table on the backend.
 - **`endpoint`** (optional) – Ingest URL. If omitted, events go to `https://api.spectrajs.com/track`.
+- **`apiKey`** (optional) – Secret token sent as `Authorization: Bearer <token>`, and as `api_key` in the body for beacon requests. Requires your server to validate the key — see below _(Server-side API key validation)_.
 - **`debug`** (optional) – When `true`, logs event names and payloads to the console.
+
+### Server-side API key validation
+
+The `apiKey` option is purely a client-side convenience. Your server is responsible for validating the token.
+
+Below is an example of how to add an API key dependency to the `/track` endpoint in [`/server/app.py`](https://github.com/mvallejo3/spectra/blob/main/server/app.py):
+
+```python
+import logging
+from datetime import date, datetime, timedelta, timezone
+
+from fastapi import FastAPI, HTTPException, Query, Request
+## 1. Add `Depends` to list of imports from fastapi ##
+from fastapi import Depends, FastAPI, HTTPException, Query, Request
+
+## ... ##
+
+## 2. Import your validation service ##
+from spectra_auth import require_api_key
+
+## ... ##
+
+## 3. Add your service as a depndency to the endpoint ##
+@app.post("/track", dependencies=[Depends(require_api_key)])
+async def ingest_events(request: Request) -> dict:
+  ## ... ##
+```
+
+> **Note:** For beacon requests the request body is consumed before the dependency runs. Cache it in middleware first (e.g. store `await request.body()` in `request.state.body`) so both the dependency and the handler can access it.
 
 ### Programmatic helpers
 
