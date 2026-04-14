@@ -60,6 +60,7 @@ export interface TrafficContext {
   first_touch_source: string | null;
   first_touch_medium: string | null;
   first_touch_campaign: string | null;
+  a_token: string | null;
 }
 
 /** Device & technical (planning/events.md §4) */
