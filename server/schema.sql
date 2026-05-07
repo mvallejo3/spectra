@@ -69,7 +69,7 @@ CREATE TABLE IF NOT EXISTS `analytics.events` (
   position_y INT64,
   -- Scroll
   scroll_depth_pct FLOAT64,
-  scroll_y INT64,
+  scroll_y FLOAT64,
   page_height INT64,
   viewport_height INT64,
   -- Form

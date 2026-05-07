@@ -1,6 +1,6 @@
 [project]
 name = "spectra-server"
-version = "1.0.1"
+version = "1.0.2"
 description = "Analytics event ingestion server for Spectra"
 readme = "README.md"
 license = { text = "MIT" }

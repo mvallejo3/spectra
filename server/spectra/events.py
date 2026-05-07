@@ -81,7 +81,7 @@ class Event(BaseModel):
 
     # Scroll-specific
     scroll_depth_pct: float | None = None
-    scroll_y: int | None = None
+    scroll_y: float | None = None
     page_height: int | None = None
     viewport_height: int | None = None
 
