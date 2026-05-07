@@ -91,6 +91,9 @@ class Event(BaseModel):
     form_method: str | None = None
     field_count: int | None = None
 
+    # Attribution
+    a_token: str | None = None
+
 
 def event_to_row(event: Event) -> dict:
     """Convert event to BigQuery row. None stays as null."""
